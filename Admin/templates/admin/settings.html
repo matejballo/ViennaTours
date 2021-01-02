@@ -1,0 +1,32 @@
+{% extends "nav.html" %}
+{% block content %}
+
+<div class="content">
+    <div class="inline">
+        <div style="display: inline-block"><h2 id="title">USERS</h2></div>
+        <div style="display: inline-block; float: right; margin-left: 2em;">
+            <form method="post">
+                <input id="add_new" name="add_new" class="btn btn-primary" type="submit" value="Add new user">
+            </form>
+        </div>
+
+    </div>
+    <table class='table'>
+
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">username</th>
+
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

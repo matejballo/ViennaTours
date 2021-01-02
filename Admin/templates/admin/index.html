@@ -1,0 +1,67 @@
+{% extends "nav.html" %}
+{% block content %}
+
+<div class="card-group">
+    <div class="card bg-light">
+        <div class="card-body text-center" id="balance">
+                <img class="card-img" alt="stats" src="../static/images/stats-icon.svg"/>
+                 <p class="card-subtitle">- BALANCE -</p>
+                <h1 class="card-header-tabs">62.5%</h1>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center" id="driver-of-the-day">
+            <img class="card-img" alt="trophy" src="../static/images/trophy-icon.svg"/>
+            <p class="card-subtitle">- DRIVER OF THE DAY -</p>
+            <h1 class="card-header-tabs">Jonathan</h1>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center" id="total">
+            <img class="card-img" alt="summary" src="../static/images/summary-icon.svg"/>
+            <p class="card-subtitle">- TOTAL -</p>
+            <h1 class="card-header-tabs">2610 €</h1>
+        </div>
+    </div>
+</div>
+
+<div class="table-header">
+    <h2>Last tours</h2>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Price</th>
+        <th scope="col">Driver</th>
+        <th scope="col">Time</th>
+        <th scope="col">People</th>
+        <th scope="col">Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">35€</th>
+        <td>Mark</td>
+        <td>12:34</td>
+        <td>3</td>
+        <td>Silver</td>
+    </tr>
+    <tr>
+        <th scope="row">90€</th>
+        <td>Jacob</td>
+        <td>12:01</td>
+        <td>4</td>
+        <td>Silver</td>
+    </tr>
+    <tr>
+        <th scope="row">45€</th>
+        <td>Jonathan</td>
+        <td>11:54</td>
+        <td>4</td>
+        <td>Gold</td>
+    </tr>
+    </tbody>
+</table>
+
+{% endblock content %}

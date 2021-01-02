@@ -1,0 +1,208 @@
+body {
+    padding-bottom: 5em;
+}
+
+.nav-link, .navbar-brand {
+    color: #daa520;
+}
+
+.navbar {
+    border-bottom: 1pt solid #daa520;
+    margin-bottom: 2em;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("../images/hamburger-icon.svg");
+    background-size: 100%;
+    background-position: center center;
+    width: 30px;
+    height: 30px;
+    display: flex;
+}
+
+.navbar-inverse .navbar-toggler-icon {
+    background-image: url("../images/hamburger-icon.svg");
+    background-size: 100%;
+    background-position: center center;
+    width: 30px;
+    height: 30px;
+    display: flex;
+
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("../images/hamburger-icon.svg");
+    background-size: 100%;
+    background-position: center center;
+    width: 30px;
+    height: 30px;
+    display: flex;
+}
+
+.nav-link {
+    text-transform: uppercase;
+}
+
+.nav-link:hover, .navbar-brand:hover{
+    color: darkgoldenrod;
+}
+
+.navbar-toggler {
+    width: 47px;
+    height: 34px;
+    background-color: #7eb444;
+}
+
+.navbar-brand {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5em !important;
+}
+
+.nav-tabs {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5em;
+    color: goldenrod;
+}
+
+.card-header-tabs {
+    font-family: "Gill Sans MT", serif;
+}
+
+.card-car {
+    font-family: "Droid Sans", serif;
+
+}
+
+.card-img {
+    max-width: 20%;
+    height: auto;
+    margin: 1em;
+}
+
+.car-image {
+    max-width: 50%;
+    height: auto;
+    margin: 0 0.5em 0 1em;
+}
+
+.card {
+    font-family: 'PT Sans Narrow', sans-serif;
+    margin: 1em;
+}
+
+.table-header {
+    margin-top: 2em;
+    margin-left: 1em;
+    font-family: 'Raleway', sans-serif;
+}
+
+.card h2 {
+    font-family: 'Abel', sans-serif;
+}
+
+.vehicles .card {
+    margin: 3em;
+}
+
+
+#balance {
+    background: rgb(80,237,47);
+    background: linear-gradient(0deg, rgba(80,237,47,0.20770306413581052) 0%, rgba(255,255,255,0.07044816217502625) 45%);
+}
+
+#driver-of-the-day {
+    background: rgb(218,165,32);
+    background: linear-gradient(0deg, rgba(218,165,32,0.1936974618949142) 0%, rgba(255,255,255,0.07044816217502625) 80%);
+}
+
+#total {
+    background: rgb(45,253,244);
+    background: linear-gradient(0deg, rgba(45,253,244,0.25812323220303746) 0%, rgba(208,206,202,0.017226873659620057) 50%);
+}
+.employee-image {
+    width: 10rem;
+    height: auto;
+    margin: 0 0 0.5em 0.5em;
+
+}
+
+.employee-nation {
+    max-width: 30%;
+    height: auto;
+}
+
+div.inline {
+    display: inline-block;
+}
+
+.employee-info {
+    padding-left: 0.5em;
+}
+
+.employee-trophey {
+    max-width: 10%;
+    height: auto;
+}
+
+.employee-name {
+    font-family: "Gill Sans MT", serif;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.employee-nation-text {
+    font-family: 'Raleway', sans-serif;
+
+}
+
+.status-subtitle {
+    font-family: "Droid Sans", serif;
+    text-transform: uppercase;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.settings-list-users {
+    width: 130px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+}
+
+.settings-list-users a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #2196F3;
+    display: block;
+}
+
+.settings-list-users a:hover {
+    color: #064579;
+}
+
+.settings-edit-user {
+    margin-left: 140px; /* Same width as the sidebar + left position in px */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .settings-list-users {padding-top: 15px;}
+    .settings-list-users a {font-size: 18px;}
+}
+
+
+
+.edit-form {
+    width: 50%;
+    margin-right: 15%;
+    margin-left: 15%;
+
+}
