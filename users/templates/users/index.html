@@ -1,0 +1,61 @@
+{% extends "nav-user.html" %}
+{% block content %}
+
+<div class="card-group">
+    <div class="card bg-light">
+        <div class="card-body text-center" id="balance">
+                <img class="card-img" alt="stats" src="../static/images/stats-icon.svg"/>
+                 <p class="card-subtitle">- BALANCE -</p>
+                <h1 class="card-header-tabs">62.5%</h1>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center" id="driver-of-the-day">
+            <img class="card-img" alt="trophy" src="../static/images/trophy-icon.svg"/>
+            <p class="card-subtitle">- DRIVER OF THE DAY -</p>
+            <h1 class="card-header-tabs">Jonathan</h1>
+        </div>
+    </div>
+    <div class="card bg-light">
+        <div class="card-body text-center" id="total">
+            <img class="card-img" alt="summary" src="../static/images/summary-icon.svg"/>
+            <p class="card-subtitle">- TOTAL -</p>
+            <h1 class="card-header-tabs">2610 €</h1>
+        </div>
+    </div>
+</div>
+
+<div class="table-header">
+    <h2>Last tours</h2>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Row</th>
+            <th scope="col">Tour ID</th>
+            <th scope="col">Car ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">People</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for post in tours %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <th scope="row">{{ post.id }}</th>
+        <td>{{ post.carID.id }}</td>
+        <td>{{ post.date|date:"d.m - H:i" }}</td>
+        <td>{{ post.driverID.name }} {{ post.driverID.surname }}</td>
+        <td>{{ post.tourType }}</td>
+        <td>{{ post.price }}</td>
+        <td>{{ post.people }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+{% endblock content %}

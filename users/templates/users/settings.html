@@ -1,0 +1,44 @@
+{% extends "nav-user.html" %}
+{% block content %}
+
+<div class="content">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="aler alert-{{ messsage.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="inline">
+        <div style="display: inline-block"><h2 id="title">USERS</h2></div>
+        <div style="float: right; margin-left: 4em;">
+            <a class="btn btn-primary" href="{% url 'supervisor-registration' %}">Registration</a>
+        </div>
+
+    </div>
+    <table class='table'>
+
+        <thead>
+        <tr>
+            <th scope="col">Row</th>
+            <th scope="col">ID</th>
+            <th scope="col">username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in employees %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <th scope="row">{{ user.id }}</th>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.surname }}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+{% endblock content %}

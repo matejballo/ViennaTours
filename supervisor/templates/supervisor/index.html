@@ -31,37 +31,31 @@
 
 <table class="table">
     <thead>
+        <tr>
+            <th scope="col">Row</th>
+            <th scope="col">Tour ID</th>
+            <th scope="col">Car ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">People</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for post in tours %}
     <tr>
-        <th scope="col">Price</th>
-        <th scope="col">Driver</th>
-        <th scope="col">Time</th>
-        <th scope="col">People</th>
-        <th scope="col">Type</th>
+        <td>{{forloop.counter}}</td>
+        <th scope="row">{{ post.id }}</th>
+        <td>{{ post.carID.id }}</td>
+        <td>{{ post.date|date:"d.m - H:i" }}</td>
+        <td>{{ post.driverID.name }} {{ post.driverID.surname }}</td>
+        <td>{{ post.tourType }}</td>
+        <td>{{ post.price }}</td>
+        <td>{{ post.people }}</td>
     </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row">35€</th>
-        <td>Mark</td>
-        <td>12:34</td>
-        <td>3</td>
-        <td>Silver</td>
-    </tr>
-    <tr>
-        <th scope="row">90€</th>
-        <td>Jacob</td>
-        <td>12:01</td>
-        <td>4</td>
-        <td>Silver</td>
-    </tr>
-    <tr>
-        <th scope="row">45€</th>
-        <td>Jonathan</td>
-        <td>11:54</td>
-        <td>4</td>
-        <td>Gold</td>
-    </tr>
-    </tbody>
+    {% endfor %}
+</tbody>
 </table>
 
 {% endblock content %}

@@ -1,0 +1,10 @@
+{% extends "nav-login.html" %}
+{% block content %}
+    <h2>You have been logged out</h2>
+<div class="content-section">
+        <div class="form-group">
+            <a class="btn btn-outline-info" href="{% url 'login' %}">Login In Again</a>
+        </div>
+</div>
+
+{% endblock content %}
