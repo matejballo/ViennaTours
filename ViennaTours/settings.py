@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
+    'supervisor.custommiddleware.ClassName',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,3 +131,11 @@ LOGIN_REDIRECT_URL = '/login_success/'
 
 LOGIN_URL = 'login'
 
+AUTH_URLS = (
+   r'/supervisor(.*)$',
+   r'/users(.*)$',
+)
+
+NO_AUTH_URLS = (
+   r'/login(.*)$',
+)
