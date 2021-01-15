@@ -3,9 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from urllib.request import urlopen
 from django.utils.safestring import SafeString
-from .models import Tour, Employee
+from .models import Tour, Car
+from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, CarRegistrationForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -19,10 +20,10 @@ def employees(request):
     return render(request, 'supervisor/employees.html')
 
 def settings(request):
-    employees = {
-        'employees' : Employee.objects.all()
+    users = {
+        'employees' : User.objects.all()
     }
-    return render(request, 'supervisor/settings.html', employees)
+    return render(request, 'supervisor/settings.html', users)
 
 def vehicles(request):
     return render(request, 'supervisor/vehicles.html')
@@ -32,6 +33,12 @@ def listdata(request):
         'tours' : Tour.objects.all()
     }
     return render(request, 'supervisor/list.html', tours)
+
+def listcar(request):
+    cars = {
+        'cars' : Car.objects.all()
+    }
+    return render(request, 'supervisor/listcar.html', cars)
 
 def registration(request): #TODO add more info
     if request.method == 'POST':
@@ -44,3 +51,16 @@ def registration(request): #TODO add more info
     else:
         form = UserRegisterForm()
     return render(request, 'supervisor/editor.html', {'form': form})
+
+
+def createcar(request): #TODO add more info
+    if request.method == 'POST':
+        form = CarRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            #username = form.cleaned_data.get('car')
+            #messages.success(request, f'Account created for {username}!')
+            return redirect('supervisor-listcar')
+    else:
+        form = CarRegistrationForm()
+    return render(request, 'supervisor/addcar.html', {'form': form})

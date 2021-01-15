@@ -1,0 +1,29 @@
+{% extends "nav.html" %}
+{% block content %}
+
+<div class="table-header">
+    <h2>Cars in database</h2>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Car ID</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+            <th scope="col">PhotoOption</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for car in cars %}
+    <tr>
+        <th scope="row">{{ car.id }}</th>
+        <td>{{ car.latitude }}</td>
+        <td>{{ car.longitude }}</td>
+        <td>{{ car.photoOption }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+{% endblock content %}

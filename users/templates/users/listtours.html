@@ -1,0 +1,37 @@
+{% extends "nav-user.html" %}
+{% block content %}
+
+<div class="table-header">
+    <h2>Data in database</h2>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Row</th>
+            <th scope="col">Tour ID</th>
+            <th scope="col">Car ID</th>
+            <th scope="col">Date</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">People</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for post in tours %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <th scope="row">{{ post.id }}</th>
+        <td>{{ post.carID.id }}</td>
+        <td>{{ post.date }}</td>
+        <td>{{ post.driverID.name }} {{ post.driverID.surname }}</td>
+        <td>{{ post.tourType }}</td>
+        <td>{{ post.price }}</td>
+        <td>{{ post.people }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+{% endblock content %}
