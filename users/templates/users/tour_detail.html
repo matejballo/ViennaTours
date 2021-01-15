@@ -16,29 +16,18 @@
             <th scope="col">Type</th>
             <th scope="col">Price</th>
             <th scope="col">People</th>
-            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
-    {% for post in tours %}
     <tr>
-        <td>{{forloop.counter}}</td>
-        <th scope="row">{{ post.id }}</th>
-        <td>{{ post.carID.id }}</td>
-        <td>{{ post.date }}</td>
-        <td>{{ post.driverID.name }} {{ post.driverID.surname }}</td>
-        <td>{{ post.tourType }}</td>
-        <td>{{ post.price }}</td>
-        <td>{{ post.people }}</td>
-        <td>
-            <a class="btn btn-primary" href="{% url 'tour-detail' post.id %}">Display</a></td>
-        </td>
-
-    
-        </div>
-
+        <th scope="row">{{ object.id }}</th>
+        <td>{{ object.carID.id }}</td>
+        <td>{{ object.date }}</td>
+        <td>{{ object.driverID.name }} {{ object.driverID.surname }}</td>
+        <td>{{ object.tourType }}</td>
+        <td>{{ object.price }}</td>
+        <td>{{ object.people }}</td>
     </tr>
-    {% endfor %}
 </tbody>
 </table>
 
