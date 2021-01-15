@@ -1,10 +1,17 @@
 {% extends "nav-login.html" %}
 {% block content %}
-    <h2>You have been logged out</h2>
-<div class="content-section">
-        <div class="form-group">
-            <a class="btn btn-outline-info" href="{% url 'login' %}">Login In Again</a>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('/static/images/login-background.jpg');">
+        <div class="wrap-login100 p-t-30 p-b-50">
+            <span class="login100-form-title p-3 mw-100">
+                You have been </br> logged out!
+            </span>
+            <div class="container-login100-form-btn m-t-32">
+                <a class="btn login100-form-btn" href="{% url 'login' %}">Login In Again</a>
+            </div>
         </div>
+    </div>
 </div>
 
 {% endblock content %}

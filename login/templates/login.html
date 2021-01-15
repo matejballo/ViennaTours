@@ -1,19 +1,26 @@
 {% extends "nav-login.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    
 
-<div class="content-section">
-    <form class="edit-form" method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Log In</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Login</button>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('/static/images/login-background.jpg');">
+        <div class="wrap-login100 p-t-30 p-b-50">
+            <span class="login100-form-title p-b-41">
+                WELCOME!
+            </span>
+            <form class="login100-form validate-form p-b-33 p-t-5" method="POST">
+                {% csrf_token %}
+                <fieldset class="p-3">
+						{{ form|crispy }}
+                </fieldset>
+                <div class="container-login100-form-btn m-t-32">
+                    <button class="login100-form-btn" type="submit">Login</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 
-{% endblock content %}
+
+{% endblock content %}ą
