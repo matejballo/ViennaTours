@@ -10,4 +10,5 @@ urlpatterns = [
     path('listcar/', views.listcar, name='supervisor-listcar'),
     path('createcar/', views.createcar, name='supervisor-car'),
     path('registration/', views.registration, name='supervisor-registration'),
+    path('validate_username/', views.validate_username, name='validate_username')
 ]

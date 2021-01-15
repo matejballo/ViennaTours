@@ -6,12 +6,14 @@
     <form class="edit-form" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Delete post</legend>
-            <h2>Are you sure you want to delete the post? "{{ object.id }}"</h2>
+            <h2>Are you sure you want to delete the post?</h2>
+            <h5>Tour Nr. {{ object.id }} from {{ object.date|date:"d.m.Y"}}</h5>
+            <h5>Type of Tour: {{ object.tourType }}</h5>
+            <h5>Price: {{ object.price }}€</h5>
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-danger" type="submit">Yes, delete</button>
-            <a class="btn btn-outline-secondary" href="{% url 'tour-detail' object.id %}">Cancel</button>
+            <a class="btn btn-outline-secondary" href="{% url 'user-tours' %}">Cancel</a>
         </div>
     </form>
 </div>

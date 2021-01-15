@@ -7,14 +7,23 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
+from django.db.models import Sum
+import datetime
+import json
 
 # Create your views here.
 def dashboard(request):
-    #tours = {
-    #    'tours' : Tour.objects.order_by("-date")[:3] #Get last 3 tours
-    #}
-    print(request.user)
-    return render(request, 'users/index.html')#, tours)
+
+    tours = Tour.objects.filter(driverID=request.user)
+    stats = {
+        'today': tours.filter(date__date=datetime.date.today()).aggregate(Sum('price')).get('price__sum'),
+        'total': tours.aggregate(Sum('price')).get('price__sum'),
+        'silver': tours.filter(tourType="Silver").count(),
+        'gold': tours.filter(tourType="Gold").count(),
+        'platinum': tours.filter(tourType="Platinum").count()
+    }
+
+    return render(request, 'users/index.html', {'stats': stats, 'tours': tours})
 
 def settings(request):
     if request.method == 'POST':
@@ -52,6 +61,9 @@ class TourListsView(ListView):
     template_name = 'users/listtours.html'
     context_object_name = 'tours'
     ordering = ['-date']
+
+    def get_queryset(self):
+        return Tour.objects.filter(driverID=self.request.user)[:3] #TODO check if it returns only last 3
 
 class TourDetailView(DetailView):
     model = Tour
@@ -143,3 +155,35 @@ def addtour(request):
         form = TourForm()
     print(request.user)
     return render(request, 'users/addtour.html', {'form': form})
+
+def pie_chart(request):
+    tours = Tour.objects.filter(driverID=request.user)
+    stats = {
+        'silver': tours.filter(tourType="Silver").count(),
+        'gold': tours.filter(tourType="Gold").count(),
+        'platinum': tours.filter(tourType="Platinum").count()
+    }    
+    labels = ['Silver', 'Gold', 'Platinum']
+    data = [stats.get('silver'), stats.get('gold'), stats.get('platinum')]
+
+    return render(request, 'users/pie_chart.html', {
+        'labels': labels,
+        'data': data,
+    })
+
+def home(request):
+    return render(request, 'users/home.html')
+
+def population_chart(request):
+    labels = [] #days
+    data = [] #earnings
+
+    queryset = Tour.objects.all()
+    for entry in queryset:
+        labels.append(entry['tourType'])
+        data.append(entry['price'])
+    
+    return JsonResponse(data={
+        'labels': labels,
+        'data': data,
+    })

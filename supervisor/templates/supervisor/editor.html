@@ -1,7 +1,7 @@
 {% extends "nav.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-    
 
 <div class="content-section">
     <form class="edit-form" method="POST">
@@ -15,5 +15,33 @@
         </div>
     </form>
 </div>
+
+{% block javascript %}
+
+<script>
+    $("#id_username").change(function () {
+        var username = $(this).val();
+
+        $.ajax({
+            url: '{% url "validate_username" %}',
+            data: {
+                'username': username
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_taken) {
+                    alert("A user with this username already exists.");
+                }
+            }
+        });
+
+    });
+</script>
+
+
+{% endblock javascript %}
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="{% static 'js/app.js' %}"></script>
 
 {% endblock content %}

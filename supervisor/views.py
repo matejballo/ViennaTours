@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import UserRegisterForm, CarRegistrationForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import (CreateView)
+import json
+from django.http import JsonResponse
 
 # Create your views here.
 def dashboard(request):
@@ -64,3 +67,10 @@ def createcar(request): #TODO add more info
     else:
         form = CarRegistrationForm()
     return render(request, 'supervisor/addcar.html', {'form': form})
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
