@@ -1,6 +1,13 @@
 {% extends "nav.html" %}
 {% block content %}
 
+<div class="inline">
+    <div style="display: inline-block" class="table-header"><h2 id="title">USERS</h2></div>
+    <div style="float: right; margin-left: 4em;">
+        <a class="btn btn-primary table-header" href="{% url 'supervisor-employees-add' %}">Add new</a>
+    </div>
+
+</div>
 
 {% for user in employees %}
 
@@ -8,7 +15,7 @@
 <div class="card-group">
     {% endif %}
 
-    <a href="#" class="card bg-light text-dark btn">
+    <a href="{% url 'supervisor-employees-details' user.id %}" class="card bg-light text-dark btn">
         <div class="employee-body card-body">
             <img class="inline employee-image" alt="stats" src="{{ user.profile.image.url }}" />
             <div class="inline employee-info">

@@ -1,5 +1,5 @@
 from . import views
-from .views import (VehicleListsView, VehicleDeleteView)
+from .views import (VehicleListsView, VehicleDeleteView,EmployeeDeleteView, EmployeesListsView, EmployeeDetailsView, ToursListsView)
 from django.urls import path
 
 urlpatterns = [
@@ -15,11 +15,12 @@ urlpatterns = [
     path('vehicles/<int:pk>/delete/', VehicleDeleteView.as_view(template_name='supervisor/vehicle_confirm_delete.html'), name='supervisor-vehicle-delete'),
 
     #Employees
-    path('employees/', views.employees_list, name='supervisor-employees-list'),
+    path('employees/', EmployeesListsView.as_view(), name='supervisor-employees-list'),
+    path('employees/<int:pk>/', EmployeeDetailsView.as_view(template_name='supervisor/employee_details.html'), name='supervisor-employees-details'),
     path('employees/add', views.employee_add, name='supervisor-employees-add'),
-    path('employees/<int:pk>/delete/', VehicleDeleteView.as_view(template_name='supervisor/vehicle_confirm_delete.html'), name='supervisor-vehicle-delete'),
+    path('employees/<int:pk>/delete/', EmployeeDeleteView.as_view(template_name='supervisor/user_confirm_delete.html'), name='supervisor-employee-delete'),
 
     #Tours
-    path('tours/', views.tours_list, name='supervisor-tours-list'),
+    path('tours/', ToursListsView.as_view(), name='supervisor-tours-list'),
     path('tours/<int:pk>/delete/', views.tours_list, name='supervisor-tours-delete'),
 ]

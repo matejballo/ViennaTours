@@ -45,17 +45,14 @@
                 </li>
             </li>
             <li class="nav-item">
-                <div class="dropdown show">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Employees
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'supervisor-employees-list' %}">LIST EMPLOYEES</a>
-                        <a class="dropdown-item" href="{% url 'supervisor-employees-add' %}">ADD NEW</a>
-                    </div>
-                </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'supervisor-employees-list' %}">Employees</a>
+                </li>
+            </li>
+            <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'supervisor-tours-list' %}">Tours</a>
+                </li>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'supervisor-settings' %}">Settings</a>

@@ -15,7 +15,7 @@ class Car(models.Model):
     photoOption = models.ImageField(default='car-black.jpg', upload_to='cars_pics/')
 
     def __str__(self):
-        return str(self.pk)
+        return str(self.plate)
 
     def save(self):
         super().save()

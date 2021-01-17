@@ -2,36 +2,41 @@
 {% block content %}
 
 <div class="table-header">
-    <h2>Data in database</h2>
+    <h2>Tours</h2>
 </div>
 
-<table class="table">
+<table class="table p-2">
     <thead>
         <tr>
             <th scope="col">Row</th>
             <th scope="col">Tour ID</th>
             <th scope="col">Car ID</th>
             <th scope="col">Date</th>
-            <th scope="col">Driver</th>
             <th scope="col">Type</th>
             <th scope="col">Price</th>
             <th scope="col">People</th>
+            <th scope="col"></th>
         </tr>
-        </thead>
-        <tbody>
-    {% for post in tours %}
-    <tr>
-        <td>{{forloop.counter}}</td>
-        <th scope="row">{{ post.id }}</th>
-        <td>{{ post.carID.id }}</td>
-        <td>{{ post.date }}</td>
-        <td>{{ post.driverID.name }} {{ post.driverID.surname }}</td>
-        <td>{{ post.tourType }}</td>
-        <td>{{ post.price }}</td>
-        <td>{{ post.people }}</td>
-    </tr>
-    {% endfor %}
-</tbody>
+    </thead>
+    <tbody>
+        {% for tour in tours %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <th scope="row">{{ tour.id }}</th>
+            <td>{{ tour.carID.id }}</td>
+            <td>{{ tour.date|date:"d.m.Y" }}</td>
+            <td>{{ tour.tourType }}</td>
+            <td>{{ tour.price }}€</td>
+            <td>{{ tour.people }}x</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'tour-detail' tour.id %}">Details</a>
+                <a class="btn btn-primary" href="{% url 'tour-update' tour.id %}">Edit</a>
+                <a class="btn btn-primary" href="{% url 'tour-delete' tour.id %}">Remove</a>
+            </td>
+            </div>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
 {% endblock content %}

@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from supervisor.models import Car, Tour
-from supervisor.forms import UserRegisterForm
+from supervisor.forms import SignUpForm
 from .forms import TourForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)

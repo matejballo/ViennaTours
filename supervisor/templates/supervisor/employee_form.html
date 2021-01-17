@@ -1,8 +1,9 @@
 {% extends "nav.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% block content %}
 
+
+{% block content %}
 <div class="content-section">
     <form class="edit-form" method="POST">
         {% csrf_token %}
