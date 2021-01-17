@@ -1,0 +1,36 @@
+{% extends "nav.html" %}
+{% block content %}
+
+<div class="inline">
+    <div style="display: inline-block" class="table-header"><h2 id="title">USERS</h2></div>
+    <div style="float: right; margin-left: 4em;">
+        <a class="btn btn-primary table-header" href="{% url 'supervisor-vehicle-add' %}">Add new</a>
+    </div>
+
+</div>
+
+<div class="vehicles"></div>
+{% for car in cars %}
+    {% if not forloop.counter|divisibleby:2 %}
+    <div class="card-group">
+    {% endif %}
+
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <img class="car-image" alt="car" src="{{ car.photoOption.url }}" style="display: inline-block"/>
+                <div class="car-info"  style="display: inline-block;">
+                    <h4 class="employee-name">Nr. {{ car.plate }}</h4>
+                    <a class="btn btn-primary" href="{% url 'supervisor-vehicle-delete' car.id %}">Remove</a>
+                </div>
+            </div>
+
+        </div>
+
+    {% if forloop.counter|divisibleby:2 %}
+    </div>
+    {% endif %}
+
+{% endfor %}
+</div>
+
+{% endblock content %}
