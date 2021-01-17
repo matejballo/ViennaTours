@@ -11,39 +11,18 @@
   <script>
 
     $(function () {
-
-      var $populationChart = $("#population-chart");
       $.ajax({
-        url: $populationChart.data("url"),
-        success: function (data) {
-
-          var ctx = $populationChart[0].getContext("2d");
-
-          new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: data.labels,
-              datasets: [{
-                label: 'Population',
-                backgroundColor: 'blue',
-                data: data.data
-              }]          
-            },
-            options: {
-              responsive: true,
-              legend: {
-                position: 'top',
-              },
-              title: {
-                display: true,
-                text: 'Population Line Chart'
-              }
+            url: '{% url "get-tours" %}',
+            datatype: 'json',
+            type: 'GET',
+            success: function(data) {
+                $.each(data.events, function(index, element) {
+                    $('body').append($('<div>', {
+                        text: element.name
+                    }));
+                });
             }
-          });
-
-        }
-      });
-
+        });
     });
 
   </script>

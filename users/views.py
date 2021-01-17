@@ -8,6 +8,9 @@ from django.views.generic import (ListView, DetailView, CreateView, UpdateView, 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 from django.db.models import Sum
+from django.http import JsonResponse
+from django.template import defaultfilters
+
 import datetime
 import json
 
@@ -23,7 +26,31 @@ def dashboard(request):
         'platinum': tours.filter(tourType="Platinum").count()
     }
 
-    return render(request, 'users/index.html', {'stats': stats, 'tours': tours})
+    labels = ['Silver', 'Gold', 'Platinum']
+    data = [stats.get('silver'), stats.get('gold'), stats.get('platinum')]
+
+    tour_info = []
+    tour_prices = []
+
+    for tour in tours:
+        pom = defaultfilters.date(tour.date, "DATE_FORMAT") + " - " + tour.tourType + " tour"
+        tour_info.append(pom)
+        tour_prices.append(tour.price)
+
+    json_data = json.dumps(data)
+    json_labels = json.dumps(labels)
+    json_prices = json.dumps(tour_prices)
+    json_dates = json.dumps(tour_info)
+
+    tours = Tour.objects.filter(driverID=request.user).order_by('-date')[:3]
+    return render(request, 'users/index.html', {
+        'stats': stats, 
+        'tours': tours,
+        'tourlabels': json_labels,
+        'tourdata': json_data,
+        'tourdates': json_dates,
+        'tourprices': json_prices,
+        })
 
 def settings(request):
     if request.method == 'POST':
@@ -63,7 +90,7 @@ class TourListsView(ListView):
     ordering = ['-date']
 
     def get_queryset(self):
-        return Tour.objects.filter(driverID=self.request.user)[:3] #TODO check if it returns only last 3
+        return Tour.objects.filter(driverID=self.request.user)
 
 class TourDetailView(DetailView):
     model = Tour
@@ -166,24 +193,19 @@ def pie_chart(request):
     labels = ['Silver', 'Gold', 'Platinum']
     data = [stats.get('silver'), stats.get('gold'), stats.get('platinum')]
 
+    json_string = json.dumps(stats)
+    json_data = json.dumps(data)
+    json_labels = json.dumps(labels)
+
     return render(request, 'users/pie_chart.html', {
-        'labels': labels,
-        'data': data,
+        'tourlabels': json_labels,
+        'tourdata': json_data,
+        'stats': json_string,
     })
 
 def home(request):
     return render(request, 'users/home.html')
 
-def population_chart(request):
-    labels = [] #days
-    data = [] #earnings
-
-    queryset = Tour.objects.all()
-    for entry in queryset:
-        labels.append(entry['tourType'])
-        data.append(entry['price'])
-    
-    return JsonResponse(data={
-        'labels': labels,
-        'data': data,
-    })
+def getTours(request):
+    tours_list = Tour.objects.all().values("tourType", "price")
+    return JsonResponse(tours_list)

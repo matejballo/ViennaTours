@@ -10,7 +10,9 @@ class CarForm(ModelForm):
         model = Car
         fields = ['latitude', 'longitude', 'photoOption']
 
-class TourForm(ModelForm):
+class TourForm(forms.ModelForm):
+    TOUR_OPTIONS = (('silver', 'Silver'), ('gold', 'Gold'), ('platinum', 'Platinum'))
+    tourType = forms.ChoiceField(choices=TOUR_OPTIONS)
     class Meta:
         model = Tour
         fields = ['carID', 'duration', 'tourType', 'people', 'price']
