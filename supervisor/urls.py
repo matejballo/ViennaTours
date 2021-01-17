@@ -17,7 +17,7 @@ urlpatterns = [
     path('employees/', EmployeesListsView.as_view(), name='supervisor-employees-list'),
     path('employees/<int:pk>/', EmployeeDetailsView.as_view(template_name='supervisor/employee_details.html'), name='supervisor-employees-details'),
     path('employees/add', views.employee_add, name='supervisor-employees-add'),
-    path('employees/<int:pk>/delete/', EmployeeDeleteView.as_view(template_name='supervisor/user_confirm_delete.html'), name='supervisor-employee-details'),
+    path('employees/<int:pk>/delete/', EmployeeDeleteView.as_view(template_name='supervisor/user_confirm_delete.html'), name='supervisor-employee-delete'),
 
     #Tours
     path('tours/', ToursListsView.as_view(), name='supervisor-tours-list'),
