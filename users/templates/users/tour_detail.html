@@ -2,33 +2,23 @@
 {% block content %}
 
 <div class="table-header">
-    <h2>Data in database</h2>
+    <h2>Tour details</h2>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Row</th>
-            <th scope="col">Tour ID</th>
-            <th scope="col">Car ID</th>
-            <th scope="col">Date</th>
-            <th scope="col">Driver</th>
-            <th scope="col">Type</th>
-            <th scope="col">Price</th>
-            <th scope="col">People</th>
-        </tr>
-        </thead>
-        <tbody>
-    <tr>
-        <th scope="row">{{ object.id }}</th>
-        <td>{{ object.carID.id }}</td>
-        <td>{{ object.date }}</td>
-        <td>{{ object.driverID.name }} {{ object.driverID.surname }}</td>
-        <td>{{ object.tourType }}</td>
-        <td>{{ object.price }}</td>
-        <td>{{ object.people }}</td>
-    </tr>
-</tbody>
-</table>
+<div class="card">
+    <div class="employee-body card-body d-flex justify-content-center">
+        <img class="inline employee-image" alt="car" src="{{ object.carID.image.url }}"/>
+        <div class="inline employee-info">
+            <p class="employee-name">Car Nr. {{ object.carID.id }}</p>
+            <p class="tour-subtitle">{{ object.date }}</p>
+            <p class="tour-subtitle">ID: {{ object.id }} Type: {{ object.tourType }}</p>
+            <p class="tour-subtitle" >People: {{ object.people }}</p>
+            <p class="tour-subtitle">Price: {{ object.price }}€</p>
+        </div>
+
+
+    </div>
+ </div>
 
 {% endblock content %}
+

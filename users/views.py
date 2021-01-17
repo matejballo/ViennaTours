@@ -41,10 +41,11 @@ def dashboard(request):
     json_labels = json.dumps(labels)
     json_prices = json.dumps(tour_prices)
     json_dates = json.dumps(tour_info)
+    json_stats = json.dumps(stats)
 
     tours = Tour.objects.filter(driverID=request.user).order_by('-date')[:3]
     return render(request, 'users/index.html', {
-        'stats': stats, 
+        'stats': json_stats, 
         'tours': tours,
         'tourlabels': json_labels,
         'tourdata': json_data,

@@ -58,7 +58,7 @@ def registration(request): #TODO add more info
 
 def createcar(request): #TODO add more info
     if request.method == 'POST':
-        form = CarRegistrationForm(request.POST)
+        form = CarRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             #username = form.cleaned_data.get('car')

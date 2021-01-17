@@ -101,6 +101,8 @@ body {
     font-family: 'Abel', sans-serif;
 }
 
+
+
 .vehicles .card {
     margin: 3em;
 }
@@ -120,6 +122,7 @@ body {
     background: rgb(45,253,244);
     background: linear-gradient(0deg, rgba(45,253,244,0.25812323220303746) 0%, rgba(208,206,202,0.017226873659620057) 50%);
 }
+
 .employee-image {
     width: 10rem;
     height: auto;
@@ -208,23 +211,6 @@ body {
 
 }
 
-.rounded-circle .account-img {
-    height: 50px!important;
-    width: 50px !important;
-}
-
-.avatar .avatar-xl {
-    height: 50px!important;
-    width: 50px !important;
-}
-
-.rounded-circle {
-    border-radius: 50% !important;
-}
-img {
-    vertical-align: middle;
-    border-style: none;
-}
 .text-muted {
     color: #aeb0b4 !important;
 }
