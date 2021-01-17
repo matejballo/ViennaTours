@@ -15,6 +15,7 @@
             <th scope="col">Type</th>
             <th scope="col">Price</th>
             <th scope="col">People</th>
+            <th scope="col">Driver</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -28,10 +29,10 @@
             <td>{{ tour.tourType }}</td>
             <td>{{ tour.price }}€</td>
             <td>{{ tour.people }}x</td>
+            <td>{{ tour.driverID.get_full_name }}</td>
             <td>
-                <a class="btn btn-primary" href="{% url 'tour-detail' tour.id %}">Details</a>
-                <a class="btn btn-primary" href="{% url 'tour-update' tour.id %}">Edit</a>
-                <a class="btn btn-primary" href="{% url 'tour-delete' tour.id %}">Remove</a>
+                <a class="btn btn-primary" href="{% url 'supervisor-tour-details' tour.id %}">Details</a>
+                <a class="btn btn-primary" href="{% url 'supervisor-tour-delete' tour.id %}">Remove</a>
             </td>
             </div>
         </tr>
