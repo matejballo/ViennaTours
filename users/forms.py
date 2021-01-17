@@ -5,11 +5,6 @@ from django.forms import ModelForm
 from supervisor.models import Tour, Car
 from users.models import Profile
 
-class CarForm(ModelForm):
-    class Meta:
-        model = Car
-        fields = ['latitude', 'longitude', 'photoOption']
-
 class TourForm(forms.ModelForm):
     TOUR_OPTIONS = (('silver', 'Silver'), ('gold', 'Gold'), ('platinum', 'Platinum'))
     tourType = forms.ChoiceField(choices=TOUR_OPTIONS)
@@ -17,7 +12,6 @@ class TourForm(forms.ModelForm):
     class Meta:
         model = Tour
         fields = ['carID', 'duration', 'tourType', 'people', 'price']
-
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

@@ -18,4 +18,8 @@ class CarRegistrationForm(ModelForm):
     class Meta:
         model = Car
         fields = ['latitude', 'longitude', 'photoOption']
-    
+
+class CarForm(ModelForm):
+    class Meta:
+        model = Car
+        fields = ['latitude', 'longitude', 'photoOption']

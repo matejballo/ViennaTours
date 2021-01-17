@@ -1,8 +1,14 @@
 {% extends "nav.html" %}
 {% block content %}
+<div class="vehicles"></div>
+{% for car in cars %}
 
-<div class="vehicles">
+
+    
+    {% if not forloop.counter|divisibleby:2 %}
     <div class="card-group">
+    {% endif %}
+
         <div class="card bg-light">
             <div class="card-body text-center">
     
@@ -11,99 +17,19 @@
                     <p class="driver-name">DRIVER: MARK</p>
                     <p class="car-total">TOTAL: 235 €</p>
                 </div>
-                <h1 class="card-car">Nr. 1</h1>
+                <h1 class="card-car">Nr. {{ car.id }}</h1>
                 <div class="status-info">
                     <img  class="status-icon" alt="status" src="/static/images/status-icon-available.svg" style="display: inline-block"/>
                     <p class="status-subtitle" style="display: inline-block">AVAILABLE</p>
                 </div>
             </div>
         </div>
-        <div class="card bg-light">
-            <div class="card-body text-center">
-    
-                <img class="car-image" alt="stats" src="/static/images/car-white-2.jpg" style="display: inline-block"/>
-                <div class="car-info"  style="display: inline-block;">
-                    <p class="driver-name">DRIVER: JACOB</p>
-                    <p class="car-total">TOTAL: 130 €</p>
-                </div>
-                <h1 class="card-car">Nr. 2</h1>
-                <div class="status-info">
-                    <img  class="status-icon" alt="status" src="/static/images/status-icon-nonavailable.svg" style="display: inline-block"/>
-                    <p class="status-subtitle" style="display: inline-block">ON TOUR</p>
-                </div>
-    
-            </div>
-        </div>
-        <div class="card bg-light">
-            <div class="card-body text-center">
-    
-                <img class="car-image" alt="stats" src="/static/images/car-black.jpg" style="display: inline-block"/>
-                <div class="car-info"  style="display: inline-block;">
-                    <p class="driver-name">DRIVER: EMA</p>
-                    <p class="car-total">TOTAL: 150 €</p>
-                </div>
-                <h1 class="card-car">Nr. 3</h1>
-                <div class="status-info">
-                    <img  class="status-icon" alt="status" src="/static/images/status-icon-available.svg" style="display: inline-block"/>
-                    <p class="status-subtitle" style="display: inline-block">AVAILABLE</p>
-                </div>
-    
-            </div>
-        </div>
-    </div>
-    
-    
-    <div class="card-group">
-        <div class="card bg-light">
-            <div class="card-body text-center">
-    
-                <img class="car-image" alt="stats" src="/static/images/car-white.jpg" style="display: inline-block"/>
-                <div class="car-info"  style="display: inline-block;">
-                    <p class="driver-name">DRIVER: JOSH</p>
-                    <p class="car-total">TOTAL: 175 €</p>
-                </div>
-                <h1 class="card-car">Nr. 4</h1>
-                <div class="status-info">
-                    <img  class="status-icon" alt="status" src="/static/images/status-icon-available.svg" style="display: inline-block"/>
-                    <p class="status-subtitle" style="display: inline-block">AVAILABLE</p>
-                </div>
-            </div>
-        </div>
-        <div class="card bg-light">
-            <div class="card-body text-center">
-    
-                <img class="car-image" alt="stats" src="/static/images/car-red.jpg" style="display: inline-block"/>
-                <div class="car-info"  style="display: inline-block;">
-                    <p class="driver-name">DRIVER: SAM</p>
-                    <p class="car-total">TOTAL: 75 €</p>
-                </div>
-                <h1 class="card-car">Nr. 5</h1>
-                <div class="status-info">
-                    <img  class="status-icon" alt="status" src="/static/images/status-icon-available.svg" style="display: inline-block"/>
-                    <p class="status-subtitle" style="display: inline-block">AVAILABLE</p>
-                </div>
-    
-            </div>
-        </div>
-        <div class="card bg-light">
-            <div class="card-body text-center">
-    
-                <img class="car-image" alt="stats" src="/static/images/car-green.jpg" style="display: inline-block"/>
-                <div class="car-info"  style="display: inline-block;">
-                    <p class="driver-name">DRIVER: MIA</p>
-                    <p class="car-total">TOTAL: 125 €</p>
-                </div>
-                <h1 class="card-car">Nr. 6</h1>
-                <div class="status-info">
-                    <img  class="status-icon" alt="status" src="/static/images/status-icon-nonavailable.svg" style="display: inline-block"/>
-                    <p class="status-subtitle" style="display: inline-block">ON TOUR</p>
-                </div>
-    
-            </div>
-        </div>
-    </div>
-    </div>
-    
 
+    {% if forloop.counter|divisibleby:2 %}
+    </div>
+    {% endif %}
+
+{% endfor %}
+</div>
 
 {% endblock content %}

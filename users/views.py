@@ -14,9 +14,61 @@ from django.template import defaultfilters
 import datetime
 import json
 
-# Create your views here.
-def dashboard(request):
+#Generic class for listing user Tours
+class TourListsView(ListView):
+    model = Tour
+    template_name = 'users/tours_list.html'
+    context_object_name = 'tours'
+    ordering = ['-date']
 
+    def get_queryset(self):
+        return Tour.objects.filter(driverID=self.request.user)
+
+#Generic class to show details for specific Tour
+class TourDetailView(DetailView):
+    model = Tour
+
+#Generic class for deleting specific Tour
+class TourDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Tour
+    success_url = "/users"
+
+    def test_func(self):
+        tour = self.get_object()
+        if self.request.user == tour.driverID:
+            return True
+        return False    
+
+#Generic class for creating new Tours
+class TourCreateView(LoginRequiredMixin, CreateView):
+    model = Tour
+    fields = ['carID', 'duration', 'tourType', 'people', 'price']
+
+    def form_valid(self, form):
+        tour = form.instance
+        tour.driverID = self.request.user
+        form.save(commit=False)
+        return super().form_valid(form)
+
+#Generic class for editing selected Tour
+class TourUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Tour
+    fields = ['carID', 'duration', 'tourType', 'people', 'price']
+
+    def form_valid(self, form):
+        tour = form.instance
+        tour.driverID = self.request.user
+        form.save(commit=False)
+        return super().form_valid(form)
+
+    def test_func(self):
+        tour = self.get_object()
+        if self.request.user == tour.driverID:
+            return True
+        return False    
+
+#Dashboard view
+def dashboard(request):
     tours = Tour.objects.filter(driverID=request.user)
     stats = {
         'today': tours.filter(date__date=datetime.date.today()).aggregate(Sum('price')).get('price__sum'),
@@ -25,10 +77,9 @@ def dashboard(request):
         'gold': tours.filter(tourType="Gold").count(),
         'platinum': tours.filter(tourType="Platinum").count()
     }
-
     labels = ['Silver', 'Gold', 'Platinum']
     data = [stats.get('silver'), stats.get('gold'), stats.get('platinum')]
-
+    
     tour_info = []
     tour_prices = []
 
@@ -53,86 +104,7 @@ def dashboard(request):
         'tourprices': json_prices,
         })
 
-def settings(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            #username = form.cleaned_data.get('username')
-            #messages.success(request, f'Account created for {username}!')
-            return redirect('user-settings')
-    else:
-        form = UserRegisterForm()
-    return render(request, 'users/settings.html', {'form': form})
-
-def listtours(request):
-    if request.method == 'POST':
-        #print("POST: " + request.POST.get("tour_id"))
-        print(request.POST)
-        return HttpResponseRedirect('display')
-    tours = {
-        'tours' : Tour.objects.filter(driverID=request.user)
-    }
-
-    return render(request, 'users/listtours.html', tours)
-
-#def displaytour(request):
-    #value =  request.GET.get("tour_id")
-    #print("" + value)
-#    print(request.POST.get)
-#    tour = Tour.objects.get(id=1)
-#    return render(request, 'users/tour.html', {'post': tour})
-
-
-class TourListsView(ListView):
-    model = Tour
-    template_name = 'users/listtours.html'
-    context_object_name = 'tours'
-    ordering = ['-date']
-
-    def get_queryset(self):
-        return Tour.objects.filter(driverID=self.request.user)
-
-class TourDetailView(DetailView):
-    model = Tour
-
-class TourDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Tour
-    success_url = "/users"
-
-    def test_func(self):
-        tour = self.get_object()
-        if self.request.user == tour.driverID:
-            return True
-        return False    
-
-class TourCreateView(LoginRequiredMixin, CreateView):
-    model = Tour
-    fields = ['carID', 'duration', 'tourType', 'people', 'price']
-
-    def form_valid(self, form):
-        tour = form.instance
-        tour.driverID = self.request.user
-        form.save(commit=False)
-        return super().form_valid(form)
-
-class TourUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Tour
-    fields = ['carID', 'duration', 'tourType', 'people', 'price']
-
-    def form_valid(self, form):
-        tour = form.instance
-        tour.driverID = self.request.user
-        form.save(commit=False)
-        return super().form_valid(form)
-
-    def test_func(self):
-        tour = self.get_object()
-        if self.request.user == tour.driverID:
-            return True
-        return False    
-
-#@login_required
+#User profile
 def profile(request):
     #user = request.user
     if request.method == 'POST':
@@ -153,60 +125,3 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
-
-def edittour(request):
-    print(request.user)
-    tour = Tour.objects(tourID=request.user)
-    if request.method == 'POST':
-        form = TourForm(request.POST, instance=tour)
-        if form.is_valid():
-
-            form.save()
-            #username = form.cleaned_data.get('username') #TODO change
-            #messages.success(request, f'Account created for {username}!')
-            return redirect('user-tours')
-   
-    return render(request, 'users/addtour.html', {'form': form})
-
-
-def addtour(request):
-    if request.method == 'POST':
-        form = TourForm(request.POST)
-        if form.is_valid():
-            tour = form.instance
-            tour.driverID = request.user
-            form.save()
-            #username = form.cleaned_data.get('username') #TODO change
-            #messages.success(request, f'Account created for {username}!')
-            return redirect('user-tours')
-    else:
-        form = TourForm()
-    print(request.user)
-    return render(request, 'users/addtour.html', {'form': form})
-
-def pie_chart(request):
-    tours = Tour.objects.filter(driverID=request.user)
-    stats = {
-        'silver': tours.filter(tourType="Silver").count(),
-        'gold': tours.filter(tourType="Gold").count(),
-        'platinum': tours.filter(tourType="Platinum").count()
-    }    
-    labels = ['Silver', 'Gold', 'Platinum']
-    data = [stats.get('silver'), stats.get('gold'), stats.get('platinum')]
-
-    json_string = json.dumps(stats)
-    json_data = json.dumps(data)
-    json_labels = json.dumps(labels)
-
-    return render(request, 'users/pie_chart.html', {
-        'tourlabels': json_labels,
-        'tourdata': json_data,
-        'stats': json_string,
-    })
-
-def home(request):
-    return render(request, 'users/home.html')
-
-def getTours(request):
-    tours_list = Tour.objects.all().values("tourType", "price")
-    return JsonResponse(tours_list)

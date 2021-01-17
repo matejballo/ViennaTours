@@ -20,7 +20,10 @@ def dashboard(request):
     return render(request, 'supervisor/index.html', tours)
 
 def employees(request):
-    return render(request, 'supervisor/employees.html')
+    users = {
+        'employees' : User.objects.all()
+    }
+    return render(request, 'supervisor/employees.html', users)
 
 def settings(request):
     users = {
@@ -29,7 +32,10 @@ def settings(request):
     return render(request, 'supervisor/settings.html', users)
 
 def vehicles(request):
-    return render(request, 'supervisor/vehicles.html')
+    cars = {
+        'cars' : Car.objects.all()
+    }
+    return render(request, 'supervisor/vehicles.html', cars)
 
 def listdata(request):
     tours = {

@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand-md bg-light navbar-inverse">
     <!-- Brand -->
-    <a class="navbar-brand" href="index.php">Vienna Tours</a>
+    <a class="navbar-brand" href="{% url 'supervisor-dashboard' %}">Vienna Tours</a>
 
     <!-- Toggler / collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -40,10 +40,30 @@
                 <a class="nav-link" href="{% url 'supervisor-dashboard' %}">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'supervisor-vehicles' %}">Vehicles</a>
+                <div class="dropdown show">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Vehicles
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'supervisor-vehicles' %}">LIST ALL</a>
+                        <a class="dropdown-item" href="{% url 'supervisor-vehicles' %}">ADD NEW</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'supervisor-employees' %}">Employees</a>
+                <div class="dropdown show">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employees
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'supervisor-employees' %}">LIST EMPLOYEES</a>
+                        <a class="dropdown-item" href="{% url 'supervisor-registration' %}">ADD NEW</a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'supervisor-settings' %}">Settings</a>
