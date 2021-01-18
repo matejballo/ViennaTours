@@ -141,7 +141,7 @@
     var i = 0;
     var speed = 120;
     var txt = ""
-    var tag = ""
+    var tag = "best-driver"
     function typeWriter() {
         if ( i < txt.length) {
             document.getElementById(tag).innerHTML += txt.charAt(i);
@@ -155,11 +155,12 @@
         //Chart with tour types
         var ctx = document.getElementById('types-tours-chart').getContext('2d');
         window.myPie = new Chart(ctx, configTourTypes);
+        
         //Chart with earnings by tour types
         var ctx2 = document.getElementById('earnings-chart').getContext('2d');
         window.myPie = new Chart(ctx2, configTotalEarnings);
+
         //Animation of best-driver
-        tag = "best-driver"
         txt = document.getElementById(tag).innerHTML;
         document.getElementById(tag).innerHTML = "";
         typeWriter();

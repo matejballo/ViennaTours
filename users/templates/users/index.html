@@ -1,11 +1,8 @@
 {% extends "nav-user.html" %}
 {% block content %}
 
-<p id="demo"></p>
-
-
 <div class="table-header">
-    <h4>Welcome {{ user.get_short_name }}</h4>
+    <h4 id="welcome-message">Welcome {{ user.get_short_name }}</h4>
 </div>
 <div class="card-group">
     <div class="card bg-light">
@@ -127,13 +124,26 @@
         j++;
         setTimeout(countValue, animationSpeed);
     }
-    countValue();
+
+    //Apear welcome message
+    var step = 0.05;
+    var currentOpacity = 0.05;
+    var maxOpacity = 1.0;
+    function appearWelcomeMessage() {
+        if(currentOpacity <= maxLimit) {
+            document.getElementById("welcome-message").style.opacity = currentOpacity.toString();
+        }
+        currentOpacity += step;
+        setTimeout(appearWelcomeMessage, 50);
+    }
 
     window.onload = function () {
         var ctx = document.getElementById('types-tours-chart').getContext('2d');
         window.myPie = new Chart(ctx, configTourTypes);
         var ctx2 = document.getElementById('earnings-chart').getContext('2d');
         window.myPie = new Chart(ctx2, configTotalEarnings);
+        countValue();
+        appearWelcomeMessage();
     };
 </script>
 {% endblock javascript %}
