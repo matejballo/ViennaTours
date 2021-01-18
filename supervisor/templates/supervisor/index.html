@@ -1,10 +1,11 @@
 {% extends "nav.html" %}
 {% block content %}
 
+
 <div class="card-group">
     <div class="card bg-light">
         <div class="card-body text-center" id="balance">
-            <p class="card-subtitle">- PEOPLE -</p>
+            <p class="card-subtitle" id="title-people">- PEOPLE -</p>
             <div>
                 <canvas id="earnings-chart"></canvas>
             </div>
@@ -13,13 +14,13 @@
     <div class="card bg-light">
         <div class="card-body text-center" id="driver-of-the-day">
             <img class="card-img" alt="trophy" src="../static/images/trophy-icon.svg" />
-            <p class="card-subtitle">- BEST EMPLOYEE -</p>
-            <h1 class="card-header-tabs">{{ best_driver.get_short_name }}</h1>
+            <p class="card-subtitle" id="title-best">- BEST EMPLOYEE -</p>
+            <h1 class="card-header-tabs" id="best-driver">{{ best_driver.get_short_name }}</h1>
         </div>
     </div>
     <div class="card bg-light">
         <div class="card-body text-center" id="total">
-            <p class="card-subtitle">- TOTAL -</p>
+            <p class="card-subtitle" id="title-total">- TOTAL -</p>
             <div>
                 <canvas id="types-tours-chart"></canvas>
             </div>
@@ -63,9 +64,6 @@
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script>
-    var jsonObject = JSON.parse('{{ tourdata | escapejs }}');
-    console.log(jsonObject);
-
     var configTourTypes = {
         type: 'bar',
         data: {
@@ -138,33 +136,34 @@
         }   
     };
 
-    function update_users_count() {
-        var countValue = JSON.parse('{{ stats | escapejs }}');
-        $('#value b').animate({
-            counter: countValue.today
-        }, {
-                duration: 1000,
-                easing: 'swing',
-                step: function(now) {
-                    $(this).text(Math.ceil(now));
-                },
-                complete: update_users_count
-            });
-    };
 
-    update_users_count();
+    //Letter animation
+    var i = 0;
+    var speed = 120;
+    var txt = ""
+    var tag = ""
+    function typeWriter() {
+        if ( i < txt.length) {
+            document.getElementById(tag).innerHTML += txt.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed)
+        }
+    }
 
+    //When window is load, draw charts and display animation
     window.onload = function () {
+        //Chart with tour types
         var ctx = document.getElementById('types-tours-chart').getContext('2d');
         window.myPie = new Chart(ctx, configTourTypes);
+        //Chart with earnings by tour types
         var ctx2 = document.getElementById('earnings-chart').getContext('2d');
         window.myPie = new Chart(ctx2, configTotalEarnings);
+        //Animation of best-driver
+        tag = "best-driver"
+        txt = document.getElementById(tag).innerHTML;
+        document.getElementById(tag).innerHTML = "";
+        typeWriter();
     };
-
-    //var countValue = JSON.parse('{{ stats | escapejs }}');
-    //const obj = document.getElementById("value");
-    //animateValue(obj, countValue.today, 0, 5000);
-
 </script>
 {% endblock javascript %}
 

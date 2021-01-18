@@ -1,6 +1,9 @@
 {% extends "nav-user.html" %}
 {% block content %}
 
+<p id="demo"></p>
+
+
 <div class="table-header">
     <h4>Welcome {{ user.get_short_name }}</h4>
 </div>
@@ -17,7 +20,7 @@
         <div class="card-body text-center" id="driver-of-the-day">
             <img class="card-img" alt="trophy" src="../static/images/stats-icon.svg" />
             <p class="card-subtitle">- TODAY -</p>
-            <h1 id="value" class="card-header-tabs"><b counter="0">0</b> €</h1>
+            <h1 class="card-header-tabs" id="totalcounter" >0 €</h1>
         </div>
     </div>
     <div class="card bg-light">
@@ -63,8 +66,6 @@
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 <script>
-    var jsonObject = JSON.parse('{{ tourdata | escapejs }}');
-    console.log(jsonObject);
 
     var configTourTypes = {
         type: 'pie',
@@ -113,21 +114,20 @@
         }   
     };
 
-    function update_users_count() {
-        var countValue = JSON.parse('{{ stats | escapejs }}');
-        $('#value b').animate({
-            counter: countValue.today
-        }, {
-                duration: 1000,
-                easing: 'swing',
-                step: function(now) {
-                    $(this).text(Math.ceil(now));
-                },
-                complete: update_users_count
-            });
-    };
-
-    update_users_count();
+    //Count to specific value
+    var jsonObject = JSON.parse('{{ stats | escapejs }}');
+    console.log(jsonObject.today);
+    var j = 0;
+    var animationSpeed = 10;
+    var maxLimit = jsonObject.today;
+    function countValue() {
+        if(j <= maxLimit) {
+            document.getElementById("totalcounter").innerHTML = (parseInt(j) + " €");
+        }
+        j++;
+        setTimeout(countValue, animationSpeed);
+    }
+    countValue();
 
     window.onload = function () {
         var ctx = document.getElementById('types-tours-chart').getContext('2d');
@@ -135,11 +135,6 @@
         var ctx2 = document.getElementById('earnings-chart').getContext('2d');
         window.myPie = new Chart(ctx2, configTotalEarnings);
     };
-
-    //var countValue = JSON.parse('{{ stats | escapejs }}');
-    //const obj = document.getElementById("value");
-    //animateValue(obj, countValue.today, 0, 5000);
-
 </script>
 {% endblock javascript %}
 
