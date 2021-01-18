@@ -5,7 +5,8 @@
     <h2>Your tours</h2>
 </div>
 
-<table class="table p-2">
+<div class="table-responsive">
+<table class="table">
     <thead>
         <tr>
             <th scope="col">Row</th>
@@ -23,7 +24,7 @@
     <tr>
         <td>{{forloop.counter}}</td>
         <th scope="row">{{ tour.id }}</th>
-        <td>{{ tour.carID.id  }}</td>
+        <td>{{ tour.carID.plate  }}</td>
         <td>{{ tour.date|date:"d.m.Y" }}</td>
         <td>{{ tour.tourType }}</td>
         <td>{{ tour.price }}€</td>
@@ -33,10 +34,10 @@
             <a class="btn btn-primary" href="{% url 'tour-update' tour.id %}">Edit</a>
             <a class="btn btn-primary" href="{% url 'tour-delete' tour.id %}">Remove</a>
         </td>
-        </div>
     </tr>
     {% endfor %}
 </tbody>
 </table>
+</div>
 
 {% endblock content %}
