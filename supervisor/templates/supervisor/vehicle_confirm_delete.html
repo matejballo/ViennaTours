@@ -1,13 +1,13 @@
 {% extends "nav.html" %}
 {% block content %}
     
-
+<!-- Confirm delete -->
 <div class="content-section">
     <form class="edit-form" method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
             <h2>Are you sure you want to delete this vehicle?</h2>
-            <h5>Car Nr. {{ object.id }}</h5>
+            <h5>Car Nr. {{ object.plate }}</h5>
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-danger" type="submit">Yes, delete</button>

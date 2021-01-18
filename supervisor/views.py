@@ -25,12 +25,6 @@ import datetime
 #   TOURS
 #
 #List all tours
-def tours_list(request):
-    tours = {
-        'tours' : Tour.objects.all()
-    }
-    return render(request, 'supervisor/tours_list.html', tours)
-
 class ToursListsView(ListView):
     model = Tour
     template_name = 'supervisor/tours_list.html'
@@ -39,16 +33,15 @@ class ToursListsView(ListView):
     def get_queryset(self):
         return Tour.objects.all()
 
+#Delete specific Tour
 class TourDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Tour
     success_url = "/supervisor/tours"
 
     def test_func(self):
-        tour = self.get_object()
-        if self.request.user == self.request.user:
-            return True
-        return False    
+        return True    
 
+#Show tour details
 class TourDetailsView(DetailView):
     model = Tour
 
@@ -102,12 +95,12 @@ def employee_add(request): #TODO add more info
 #   VEHICLES
 #
 #Create new vehicle
-def vehicle_add(request): #TODO add more info
+def vehicle_add(request):
     if request.method == 'POST':
         form = CarRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            #TODO messages.success(request, f'Account created for {username}!')
+            messages.success(request, 'New vehicle has been created!')
             return redirect('supervisor-vehicles-list')
     else:
         form = CarRegistrationForm()
@@ -128,10 +121,7 @@ class VehicleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = "/supervisor/vehicles"
 
     def test_func(self):
-        car = self.get_object()
-        if self.request.user == self.request.user: #TODO zmen
-            return True
-        return False    
+        return True 
 
 ################
 #

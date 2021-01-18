@@ -5,6 +5,7 @@
     <h2>Tours</h2>
 </div>
 
+<div class="table-responsive">
 <table class="table p-2">
     <thead>
         <tr>
@@ -24,7 +25,7 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <th scope="row">{{ tour.id }}</th>
-            <td>{{ tour.carID.id }}</td>
+            <td>{{ tour.carID.plate }}</td>
             <td>{{ tour.date|date:"d.m.Y" }}</td>
             <td>{{ tour.tourType }}</td>
             <td>{{ tour.price }}€</td>
@@ -38,5 +39,6 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
 
 {% endblock content %}

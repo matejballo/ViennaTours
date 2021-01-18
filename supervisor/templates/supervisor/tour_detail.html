@@ -1,14 +1,15 @@
 {% extends "nav.html" %}
 {% block content %}
 
+<!-- Show tour driver -->
 <div class="table-header">
     <h2>Tour made by {{ object.driverID.get_full_name }}</h2>
 </div>
 
+<!-- Show tour details -->
 <div class="card">
-
     <div class="employee-body card-body d-flex justify-content-center">
-        <img class="inline employee-image" alt="car" src="{{ object.carID.image.url }}"/>
+        <img class="inline employee-image" alt="car" src="{{ object.carID.photoOption.url }}"/>
         <div class="inline employee-info">
             <p class="employee-name">Car Nr. {{ object.carID.plate }}</p>
             <p class="tour-subtitle">{{ object.date }}</p>
