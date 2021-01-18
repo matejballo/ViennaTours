@@ -50,7 +50,7 @@ class TourDetailsView(DetailView):
 #
 #   EMPLOYEES
 #
-#List employees
+#List all employees
 class EmployeesListsView(ListView):
     model = User
     template_name = 'supervisor/employees_list.html'
@@ -59,19 +59,17 @@ class EmployeesListsView(ListView):
     def get_queryset(self):
         return User.objects.all().filter(is_staff=False)
 
-#Generic class to show details for specific Tour
+#Generic class to show details of specific Employee
 class EmployeeDetailsView(DetailView):
     model = User
 
+#Generic class to delete specific Employee
 class EmployeeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = User
     success_url = "/supervisor/employees"
 
     def test_func(self):
-        model = self.get_object()
-        if self.request.user == self.request.user: #TODO zmen
-            return True
-        return False    
+        return True    
 
 #Create new employee
 def employee_add(request): #TODO add more info
@@ -134,45 +132,38 @@ def dashboard(request):
     bestdriver_id = Tour.objects.values("driverID").annotate(c=Count('driverID')).order_by('-c').first()['driverID']
     bestdriver = User.objects.get(id=bestdriver_id)
         
+    #Get stats    
     stats = {
         'today': tours.filter(date__date=datetime.date.today()).aggregate(Sum('price')).get('price__sum'),
         'total': tours.aggregate(Sum('price')).get('price__sum'),
-        'silver': tours.filter(tourType="Silver").count(),
-        'gold': tours.filter(tourType="Gold").count(),
-        'platinum': tours.filter(tourType="Platinum").count(),
         'silver_total': tours.filter(tourType="Silver").aggregate(Sum('price')),
         'gold_total': tours.filter(tourType="Gold").aggregate(Sum('price')),
         'platinum_total': tours.filter(tourType="Platinum").aggregate(Sum('price')),
-
-
     }
+
+    #Stats of earnings by tour types
     labels = ['Silver', 'Gold', 'Platinum']
-    data = [stats.get('silver'), stats.get('gold'), stats.get('platinum')]
     data_prices = [stats.get('silver_total')['price__sum'], stats.get('gold_total')['price__sum'], stats.get('platinum_total')['price__sum']]
 
+    #Stats of amount of people
     tour_info = []
-    tour_prices = []
     tour_people = []
-
     for tour in tours:
         pom = defaultfilters.date(tour.date, "DATE_FORMAT") + " - " + tour.tourType + " tour"
         tour_info.append(pom)
-        tour_prices.append(tour.price)
         tour_people.append(tour.people)
 
-    json_data = json.dumps(data)
+    #Parse to JSON for charts
     json_data_prices = json.dumps(data_prices)
     json_labels = json.dumps(labels)
-    json_prices = json.dumps(tour_prices)
     json_people = json.dumps(tour_people)
     json_dates = json.dumps(tour_info)
-    json_stats = json.dumps(stats)
 
     print(json_data_prices)
 
+    #Get last 3 tours
     tours = tours.order_by('-date')[:3]
     return render(request, 'supervisor/index.html', {
-        'stats': json_stats, 
         'best_driver': bestdriver,
         'last_tours': tours,
         'tourlabels': json_labels,

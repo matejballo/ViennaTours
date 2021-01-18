@@ -21,7 +21,7 @@
 <script>
     $("#id_plate").change(function () {
         var plate = $(this).val();
-
+        //Check if car with this palte already exists
         $.ajax({
             url: '{% url "validate_plate" %}',
             data: {

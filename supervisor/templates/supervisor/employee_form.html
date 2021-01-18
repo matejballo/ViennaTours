@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-
+<!-- Add new employee -->
 {% block content %}
 <div class="content-section">
     <form class="edit-form" method="POST">
@@ -17,12 +17,12 @@
     </form>
 </div>
 
-{% block javascript %}
 
+{% block javascript %}
 <script>
     $("#id_username").change(function () {
         var username = $(this).val();
-
+        //Check if username already exists
         $.ajax({
             url: '{% url "validate_username" %}',
             data: {

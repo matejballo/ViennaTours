@@ -1,16 +1,19 @@
 {% extends "nav.html" %}
 {% block content %}
 
+<!-- Option to add new employee -->
 <div class="inline">
-    <div style="display: inline-block" class="table-header"><h2 id="title">USERS</h2></div>
+    <div style="display: inline-block" class="table-header"><h2 id="title">EMPLOYEES</h2></div>
     <div style="float: right; margin-left: 4em;">
         <a class="btn btn-primary table-header" href="{% url 'supervisor-employees-add' %}">Add new</a>
     </div>
 
 </div>
 
+<!-- List all availables employees -->
 {% for user in employees %}
 
+<!-- For each two employees create new row -->
 {% if not forloop.counter|divisibleby:2 %}
 <div class="card-group">
     {% endif %}
